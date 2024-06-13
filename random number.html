@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background-color: #f0f8ff;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+            font-size: 3em;
+        }
+        #numberDisplay {
+            font-size: 5em;
+            color: #ff6347;
+            margin: 20px 0;
+        }
+        button {
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        button:hover {
+            background-color: #4682b4;
+            color: white;
+        }
+        .generate-btn {
+            background-color: #7fffd4;
+        }
+        .reset-btn {
+            background-color: #ffa07a;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Random Number Generator</h1>
+<p id="numberDisplay">Press "Generate" to get a number</p>
+<button class="generate-btn" onclick="generateNumber()">Generate</button>
+<button class="reset-btn" onclick="resetNumbers()">Reset</button>
+
+<script>
+    let numbers = Array.from({ length: 15 }, (_, i) => i + 1);
+    let usedNumbers = [];
+
+    function generateNumber() {
+        if (numbers.length === 0) {
+            document.getElementById('numberDisplay').innerText = "No more numbers! Please reset.";
+            return;
+        }
+        
+        const randomIndex = Math.floor(Math.random() * numbers.length);
+        const number = numbers.splice(randomIndex, 1)[0];
+        usedNumbers.push(number);
+
+        document.getElementById('numberDisplay').innerText = number;
+    }
+
+    function resetNumbers() {
+        numbers = usedNumbers.concat(numbers);
+        usedNumbers = [];
+        document.getElementById('numberDisplay').innerText = "Press \"Generate\" to get a number";
+    }
+</script>
+
+</body>
+</html>
